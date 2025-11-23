@@ -745,4 +745,31 @@ window.addEventListener('scroll', () => {
     });
 });
 
+// Gallery Tabs Logic
+const galleryTabs = document.querySelectorAll('.gallery-tab');
+const galleryContents = document.querySelectorAll('.gallery-content');
+
+galleryTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        // Remove active class from all tabs
+        galleryTabs.forEach(t => t.classList.remove('active'));
+        // Add active class to clicked tab
+        tab.classList.add('active');
+
+        // Hide all contents
+        galleryContents.forEach(content => {
+            content.classList.remove('active');
+            content.classList.add('hidden');
+        });
+
+        // Show target content
+        const targetId = tab.getAttribute('data-tab');
+        const targetContent = document.getElementById(`gallery-${targetId}`);
+        if (targetContent) {
+            targetContent.classList.remove('hidden');
+            targetContent.classList.add('active');
+        }
+    });
+});
+
 
