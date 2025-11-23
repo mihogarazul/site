@@ -300,6 +300,11 @@ function openLightbox(index) {
 }
 
 function closeLightbox() {
+    // Restore focus FIRST to avoid "aria-hidden" error on active element
+    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+        lastFocusedElement.focus();
+    }
+
     lightbox.classList.remove('active');
     setTimeout(() => {
         lightbox.classList.add('hidden');
@@ -307,11 +312,6 @@ function closeLightbox() {
     }, 300); // Match transition duration
     document.body.style.overflow = '';
     lightbox.setAttribute('aria-hidden', 'true');
-
-    // Restore focus to previously focused element
-    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
-        lastFocusedElement.focus();
-    }
 }
 
 function showNextImage() {

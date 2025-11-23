@@ -163,13 +163,16 @@ html {
 
 
 .nav-links {
-    display: flex;
+    display: none;
+    /* Hidden by default (Mobile First) */
     gap: 2rem;
     align-items: center;
     /* Ensure vertical centering */
 }
 
 .nav-logo {
+    display: none;
+    /* Hidden by default (Mobile First) */
     width: 60px;
     /* Adjust size as needed */
     height: 60px;
@@ -184,7 +187,8 @@ html {
 }
 
 .mobile-logo {
-    display: none;
+    display: block;
+    /* Visible by default (Mobile First) */
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -215,6 +219,7 @@ html {
 
 .hamburger {
     display: none;
+    /* Hidden by default */
     cursor: pointer;
 }
 
@@ -263,7 +268,21 @@ html {
 
 
 /* Navbar shrink effect (Desktop only) */
-@media (min-width: 769px) {
+@media (min-width: 1151px) {
+
+    /* Show Desktop Elements */
+    .nav-links {
+        display: flex;
+    }
+
+    .nav-logo {
+        display: block;
+    }
+
+    .mobile-logo {
+        display: none;
+    }
+
     .lofi-nav.scrolled {
         /* Reduce padding but keep comfortable touch/click area */
         padding: 0.5rem 3rem;
@@ -294,6 +313,15 @@ html {
     /* Make hamburger slightly thinner when navbar is shrunk */
     .lofi-nav.scrolled .hamburger span {
         height: 2.5px;
+    }
+
+    /* Swap Scroll Icons for Desktop */
+    .desktop-icon {
+        display: block !important;
+    }
+
+    .mobile-icon {
+        display: none !important;
     }
 }
 
@@ -724,7 +752,7 @@ html {
     box-shadow: 0 15px 30px rgba(44, 62, 80, 0.3);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1150px) {
     .detail-hero {
         height: auto;
         /* Let content dictate height */
@@ -950,7 +978,7 @@ html {
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1150px) {
     .testimonials-container {
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -1140,7 +1168,7 @@ html {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1150px) {
     .contact-container {
         flex-direction: column;
         gap: 2rem;
@@ -1490,7 +1518,7 @@ html {
 
 
 /* Responsive Gallery */
-@media (max-width: 768px) {
+@media (max-width: 1150px) {
     .gallery-grid {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -1589,7 +1617,7 @@ html {
     right: 20px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1150px) {
     .lightbox-nav {
         display: none;
     }
@@ -1636,10 +1664,23 @@ html {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
+/* Mobile First Icon Logic */
+.desktop-icon {
+    display: none !important;
+    /* Hidden on mobile */
+}
+
+.mobile-icon {
+    display: block !important;
+    /* Shown on mobile */
+}
+
 .scroll-to-top svg {
     width: 24px;
     height: 24px;
     transition: transform 0.3s ease;
+    stroke: currentColor;
+    /* Ensure stroke uses text color */
 }
 
 .scroll-to-top:hover svg {
@@ -1653,7 +1694,7 @@ html {
 /* Mobile Navigation (iOS Style) */
 
 /* Moved Mobile Media Query to End for Specificity */
-@media (max-width: 768px) {
+@media (max-width: 1150px) {
     .lofi-nav {
         padding: 1.5rem;
         justify-content: center;
@@ -1737,13 +1778,8 @@ html {
         transform: none !important;
     }
 
-    .desktop-icon {
-        display: none !important;
-    }
-
-    .mobile-icon {
-        display: block !important;
-        width: 20px;
-        height: 20px;
+    .scroll-to-top:hover {
+        background-color: rgba(255, 255, 255, 0.9) !important;
+        transform: none !important;
     }
 }
