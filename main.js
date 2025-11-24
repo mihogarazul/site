@@ -262,7 +262,6 @@ sections.forEach(section => {
 });
 
 // Gallery Lightbox
-const galleryItems = document.querySelectorAll('.gallery-item img');
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
 const lightboxClose = document.getElementById('lightbox-close');
@@ -271,10 +270,21 @@ const lightboxNext = document.getElementById('lightbox-next');
 
 let currentIndex = 0;
 let lastFocusedElement = null;
+let currentGalleryItems = []; // Store current visible gallery items
+
+// Helper to get current visible gallery images
+function getCurrentGalleryItems() {
+    const activeContent = document.querySelector('.gallery-content.active');
+    if (activeContent) {
+        return Array.from(activeContent.querySelectorAll('.gallery-item img'));
+    }
+    return [];
+}
 
 function openLightbox(index) {
+    currentGalleryItems = getCurrentGalleryItems(); // Refresh the list
     currentIndex = index;
-    lightboxImg.src = galleryItems[currentIndex].src;
+
     // Save focused element to restore focus on close
     lastFocusedElement = document.activeElement;
 
@@ -287,11 +297,44 @@ function openLightbox(index) {
     lightbox.style.zIndex = '2147483647';
     lightbox.setAttribute('aria-hidden', 'false');
 
+    // Calculate scrollbar width to prevent layout shift
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    // Prevent scrolling and compensate for scrollbar width
+    document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
+
+    // Prepare the image with initial state (hidden and scaled down)
+    lightboxImg.style.opacity = '0';
+    lightboxImg.style.transform = 'scale(0.8)';
+
+    // Show the lightbox background first
     lightbox.classList.remove('hidden');
     // Force reflow to enable transition
     void lightbox.offsetWidth;
     lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Prevent scrolling
+
+    // Preload the image before showing it
+    const imgToLoad = new Image();
+    imgToLoad.onload = () => {
+        // Set the source
+        lightboxImg.src = currentGalleryItems[currentIndex].src;
+
+        // Animate the image in with a slight delay
+        setTimeout(() => {
+            lightboxImg.style.opacity = '1';
+            lightboxImg.style.transform = 'scale(1)';
+        }, 50);
+    };
+
+    imgToLoad.onerror = () => {
+        // Even if error, show something
+        lightboxImg.src = currentGalleryItems[currentIndex].src;
+        lightboxImg.style.opacity = '1';
+        lightboxImg.style.transform = 'scale(1)';
+    };
+
+    imgToLoad.src = currentGalleryItems[currentIndex].src;
 
     // Move focus to the close button for accessibility
     if (lightboxClose) {
@@ -305,29 +348,74 @@ function closeLightbox() {
         lastFocusedElement.focus();
     }
 
+    // Animate image out (reverse of opening animation)
+    lightboxImg.style.opacity = '0';
+    lightboxImg.style.transform = 'scale(0.8)';
+
+    // Fade out lightbox background
     lightbox.classList.remove('active');
+
     setTimeout(() => {
         lightbox.classList.add('hidden');
         lightboxImg.src = '';
+
+        // Restore scrolling and remove padding compensation
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
     }, 300); // Match transition duration
-    document.body.style.overflow = '';
+
     lightbox.setAttribute('aria-hidden', 'true');
 }
 
 function showNextImage() {
-    currentIndex = (currentIndex + 1) % galleryItems.length;
-    lightboxImg.src = galleryItems[currentIndex].src;
+    // Fade out current image
+    lightboxImg.style.opacity = '0';
+    lightboxImg.style.transform = 'scale(0.9)';
+
+    setTimeout(() => {
+        currentIndex = (currentIndex + 1) % currentGalleryItems.length;
+        lightboxImg.src = currentGalleryItems[currentIndex].src;
+
+        // Fade in new image
+        setTimeout(() => {
+            lightboxImg.style.opacity = '1';
+            lightboxImg.style.transform = 'scale(1)';
+        }, 50);
+    }, 200);
 }
 
 function showPrevImage() {
-    currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
-    lightboxImg.src = galleryItems[currentIndex].src;
+    // Fade out current image
+    lightboxImg.style.opacity = '0';
+    lightboxImg.style.transform = 'scale(0.9)';
+
+    setTimeout(() => {
+        currentIndex = (currentIndex - 1 + currentGalleryItems.length) % currentGalleryItems.length;
+        lightboxImg.src = currentGalleryItems[currentIndex].src;
+
+        // Fade in new image
+        setTimeout(() => {
+            lightboxImg.style.opacity = '1';
+            lightboxImg.style.transform = 'scale(1)';
+        }, 50);
+    }, 200);
 }
 
-// Event Listeners
-galleryItems.forEach((item, index) => {
-    item.parentElement.addEventListener('click', () => openLightbox(index));
-});
+// Event Delegation - Use event listener on gallery section instead of individual items
+const gallerySection = document.getElementById('gallery');
+if (gallerySection) {
+    gallerySection.addEventListener('click', (e) => {
+        // Check if clicked element is a gallery image
+        const clickedImg = e.target.closest('.gallery-item img');
+        if (clickedImg) {
+            currentGalleryItems = getCurrentGalleryItems();
+            const index = currentGalleryItems.indexOf(clickedImg);
+            if (index !== -1) {
+                openLightbox(index);
+            }
+        }
+    });
+}
 
 lightboxClose.addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', (e) => {
@@ -749,6 +837,101 @@ window.addEventListener('scroll', () => {
 const galleryTabs = document.querySelectorAll('.gallery-tab');
 const galleryContents = document.querySelectorAll('.gallery-content');
 
+// Function to load gallery tab content with loader
+function loadGalleryTab(tabId) {
+    const loader = document.getElementById('gallery-loader');
+    const targetContent = document.getElementById(`gallery-${tabId}`);
+
+    if (!targetContent) return;
+
+    // Hide all other contents first
+    galleryContents.forEach(content => {
+        if (content !== targetContent) {
+            content.classList.remove('active');
+            content.classList.add('hidden');
+            content.style.opacity = '0';
+        }
+    });
+
+    // Show loader
+    if (loader) loader.classList.remove('hidden');
+
+    // Make target content visible in DOM (but transparent) so lazy images can load
+    targetContent.classList.remove('hidden');
+    targetContent.style.opacity = '0'; // Keep it invisible while loading
+
+    // Force eager loading for images in this tab
+    const images = targetContent.querySelectorAll('img');
+    images.forEach(img => {
+        if (img.loading === 'lazy') {
+            img.loading = 'eager';
+        }
+    });
+
+    // Simulate minimum loading time for UX (150ms) + Image Loading
+    const minDelay = 150;
+    const startTime = Date.now();
+
+    // Create promises for image loading
+    const imagePromises = Array.from(images).map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(resolve => {
+            img.onload = resolve;
+            img.onerror = resolve; // Proceed even if error
+        });
+    });
+
+    // Create a timeout promise as a fallback (1.5 seconds max)
+    const timeoutPromise = new Promise(resolve => {
+        setTimeout(resolve, 1500);
+    });
+
+    // Race between image loading and timeout
+    Promise.race([
+        Promise.all(imagePromises),
+        timeoutPromise
+    ]).then(() => {
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, minDelay - elapsedTime);
+
+        setTimeout(() => {
+            if (loader) loader.classList.add('hidden');
+            targetContent.classList.add('active');
+            // Fade in the content
+            targetContent.style.opacity = '1';
+        }, remainingTime);
+    });
+}
+
+// Load initial tab on page load (use DOMContentLoaded for faster initial load)
+document.addEventListener('DOMContentLoaded', () => {
+    const activeTab = document.querySelector('.gallery-tab.active');
+    if (activeTab) {
+        const initialTabId = activeTab.getAttribute('data-tab');
+        loadGalleryTab(initialTabId);
+
+        // Preload images from inactive tabs in background after initial load
+        setTimeout(() => {
+            galleryContents.forEach(content => {
+                const contentId = content.id.replace('gallery-', '');
+                if (contentId !== initialTabId) {
+                    // Preload images for this tab
+                    const images = content.querySelectorAll('img');
+                    images.forEach(img => {
+                        if (img.loading === 'lazy') {
+                            img.loading = 'eager';
+                        }
+                        // Force browser to start downloading
+                        const tempImg = new Image();
+                        tempImg.src = img.src;
+                    });
+                }
+            });
+        }, 2000); // Wait 2 seconds after initial load to not interfere
+    }
+});
+
+// Tab click handlers
 galleryTabs.forEach(tab => {
     tab.addEventListener('click', () => {
         // Remove active class from all tabs
@@ -756,20 +939,8 @@ galleryTabs.forEach(tab => {
         // Add active class to clicked tab
         tab.classList.add('active');
 
-        // Hide all contents
-        galleryContents.forEach(content => {
-            content.classList.remove('active');
-            content.classList.add('hidden');
-        });
-
-        // Show target content
+        // Load the selected tab
         const targetId = tab.getAttribute('data-tab');
-        const targetContent = document.getElementById(`gallery-${targetId}`);
-        if (targetContent) {
-            targetContent.classList.remove('hidden');
-            targetContent.classList.add('active');
-        }
+        loadGalleryTab(targetId);
     });
 });
-
-

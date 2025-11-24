@@ -255,9 +255,91 @@ html {
         0 0 5px rgba(238, 192, 200, 0.5),
         0 0 10px rgba(238, 192, 200, 0.3),
         0 0 15px rgba(144, 202, 249, 0.2);
-    animation: fadeInUp 1.2s ease-out forwards;
+}
+
+.letter {
+    display: inline-block;
     opacity: 0;
-    /* Start invisible */
+    animation: pixarBounce 1.2s ease-out forwards;
+}
+
+/* Add space between words */
+.letter:nth-child(2) {
+    margin-right: 0.3em;
+}
+
+.letter:nth-child(7) {
+    margin-right: 0.3em;
+}
+
+/* Stagger delays */
+.letter:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.letter:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.letter:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.letter:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.letter:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.letter:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+.letter:nth-child(7) {
+    animation-delay: 0.7s;
+}
+
+.letter:nth-child(8) {
+    animation-delay: 0.8s;
+}
+
+.letter:nth-child(9) {
+    animation-delay: 0.9s;
+}
+
+.letter:nth-child(10) {
+    animation-delay: 1.0s;
+}
+
+.letter:nth-child(11) {
+    animation-delay: 1.1s;
+}
+
+@keyframes pixarBounce {
+    0% {
+        transform: scale(1, 1) translateY(-60px);
+        opacity: 0;
+    }
+
+    30% {
+        transform: scale(1.05, 0.95) translateY(0);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(0.95, 1.05) translateY(-15px);
+    }
+
+    70% {
+        transform: scale(1.02, 0.98) translateY(0);
+    }
+
+    100% {
+        transform: scale(1, 1) translateY(0);
+        opacity: 1;
+    }
 }
 
 .banner-content p {
@@ -981,15 +1063,23 @@ html {
 
 .testimonial-card {
     flex: 1 1 300px;
-    background: #fff;
+    background: rgba(255, 255, 255, 0.7);
+    /* Semi-transparent */
+    backdrop-filter: blur(10px);
+    /* Glassmorphism */
+    -webkit-backdrop-filter: blur(10px);
     padding: 2.5rem;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    border-radius: 25px;
+    /* Softer corners */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+    /* Softer shadow */
     text-align: left;
     position: relative;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 1px solid rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.8);
     margin-bottom: 2rem;
+    overflow: hidden;
+    /* For gradient border effect if needed */
 }
 
 .testimonial-card:hover {
@@ -998,15 +1088,21 @@ html {
 }
 
 @media (max-width: 1150px) {
+    .testimonials-section {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
     .testimonials-container {
+        width: 100%;
         flex-wrap: nowrap;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         justify-content: flex-start;
-        padding: 1rem 1rem 3rem;
+        padding: 1rem 2rem 3rem;
         /* Extra bottom padding for scrollbar/shadow */
         -webkit-overflow-scrolling: touch;
-        gap: 1.5rem;
+        gap: 1rem;
         /* Hide scrollbar */
         scrollbar-width: none;
         -ms-overflow-style: none;
@@ -1017,20 +1113,25 @@ html {
     }
 
     .testimonial-card {
-        flex: 0 0 85%;
+        flex: 0 0 280px;
+        /* Slightly smaller on mobile */
+        width: 280px;
         scroll-snap-align: center;
         margin: 0;
     }
 }
 
 .quote-icon {
-    font-size: 4rem;
-    color: #FCE4EC;
+    font-size: 5rem;
+    background: linear-gradient(135deg, #FCE4EC 0%, #E8F5E9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     position: absolute;
-    top: -1rem;
-    right: 2rem;
+    top: -0.5rem;
+    right: 1.5rem;
     font-family: serif;
-    opacity: 0.5;
+    opacity: 0.6;
+    z-index: 0;
 }
 
 .testimonial-card p {
@@ -1253,7 +1354,7 @@ html {
     .gallery-grid {
         grid-template-columns: 1fr;
         /* Force single column */
-        gap: 2rem;
+        gap: rem;
         padding: 0;
     }
 
@@ -1517,6 +1618,40 @@ html {
     overflow: hidden;
 }
 
+.gallery-loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    width: 100%;
+}
+
+.gallery-loader.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #FCE4EC;
+    /* Misty Rose */
+    border-right: 5px solid #E8F5E9;
+    /* Soft Sage */
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .gallery-item img {
     width: 100%;
     height: 100%;
@@ -1599,6 +1734,7 @@ html {
 .gallery-content {
     display: none;
     animation: fadeIn 0.5s ease;
+    transition: opacity 0.4s ease;
 }
 
 .gallery-content.active {
@@ -1659,6 +1795,7 @@ html {
     max-height: 90vh;
     object-fit: contain;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .lightbox-close {
