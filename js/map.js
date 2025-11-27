@@ -11,4 +11,18 @@ document.addEventListener('DOMContentLoaded', function () {
     L.marker([27.083098, -109.453772]).addTo(map)
         .bindPopup('Mi Hogar Azul')
         .openPopup();
+
+    // Use ResizeObserver to handle container size changes robustly
+    const mapContainer = document.getElementById('leaflet-map');
+    if (mapContainer) {
+        const resizeObserver = new ResizeObserver(() => {
+            map.invalidateSize();
+        });
+        resizeObserver.observe(mapContainer);
+    }
+
+    // Fallback: Force invalidation after a delay
+    setTimeout(() => {
+        map.invalidateSize();
+    }, 1000);
 });

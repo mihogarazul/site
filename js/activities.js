@@ -1,48 +1,48 @@
 const activitiesData = {
-    sensorial: `
-        <div class="detail-hero">
+    emocional: `
+        <div class="detail-hero hero-emocional">
             <div class="hero-bg"></div>
             <div class="hero-content">
                 <div class="hero-icon-wrapper">
-                    <span class="hero-icon">✨</span>
+                    <span class="hero-icon">🧠</span>
                 </div>
-                <h2>Estimulación Sensorial</h2>
-                <p class="hero-subtitle">Despertando los sentidos</p>
+                <h2>Gestión Emocional</h2>
+                <p class="hero-subtitle">Inteligencia del Corazón</p>
             </div>
         </div>
         <div class="detail-content-wrapper">
             <div class="detail-card glass-effect">
-                <p class="detail-description">Nuestras sesiones de estimulación sensorial están diseñadas para despertar la curiosidad natural de tu bebé. Utilizamos una variedad de materiales seguros y atractivos para crear experiencias únicas que fomentan las conexiones neuronales.</p>
+                <p class="detail-description">Ayudamos a los pequeños a identificar, comprender y expresar sus emociones de manera saludable. A través de juegos y dinámicas, fomentamos la inteligencia emocional desde temprana edad.</p>
                 
                 <div class="detail-section">
-                    <h3>¿Qué incluye la experiencia?</h3>
+                    <h3>Beneficios Clave</h3>
                     <ul class="benefit-grid">
                         <li class="benefit-item">
-                            <span class="benefit-icon">🧸</span>
+                            <span class="benefit-icon">🎭</span>
                             <div class="benefit-text">
-                                <strong>Exploración Táctil</strong>
-                                <p>Texturas suaves, rugosas y lisas.</p>
+                                <strong>Reconocimiento</strong>
+                                <p>Identificar alegría, tristeza, enojo.</p>
                             </div>
                         </li>
                         <li class="benefit-item">
-                            <span class="benefit-icon">💡</span>
+                            <span class="benefit-icon">🌬️</span>
                             <div class="benefit-text">
-                                <strong>Estimulación Visual</strong>
-                                <p>Juegos de luces tenues y sombras.</p>
+                                <strong>Autorregulación</strong>
+                                <p>Técnicas de respiración y calma.</p>
                             </div>
                         </li>
                         <li class="benefit-item">
-                            <span class="benefit-icon">🎵</span>
+                            <span class="benefit-icon">❤️</span>
                             <div class="benefit-text">
-                                <strong>Armonía Auditiva</strong>
-                                <p>Sonidos de la naturaleza y música.</p>
+                                <strong>Empatía</strong>
+                                <p>Entender los sentimientos de otros.</p>
                             </div>
                         </li>
                         <li class="benefit-item">
-                            <span class="benefit-icon">🌸</span>
+                            <span class="benefit-icon">🗣️</span>
                             <div class="benefit-text">
-                                <strong>Aromaterapia</strong>
-                                <p>Esencias suaves y seguras.</p>
+                                <strong>Expresión</strong>
+                                <p>Comunicar lo que sienten sin miedo.</p>
                             </div>
                         </li>
                     </ul>
@@ -58,50 +58,50 @@ const activitiesData = {
             </div>
         </div>
     `,
-    motricidad: `
-        <div class="detail-hero hero-motricidad">
+    arte: `
+        <div class="detail-hero hero-arte">
             <div class="hero-bg"></div>
             <div class="hero-content">
                 <div class="hero-icon-wrapper">
-                    <span class="hero-icon">🏃‍♂️</span>
+                    <span class="hero-icon">🎨</span>
                 </div>
-                <h2>Motricidad</h2>
-                <p class="hero-subtitle">Movimiento y Libertad</p>
+                <h2>Arte Terapia</h2>
+                <p class="hero-subtitle">Creando y Sanando</p>
             </div>
         </div>
         <div class="detail-content-wrapper">
             <div class="detail-card glass-effect">
-                <p class="detail-description">Fomentamos el movimiento libre y el desarrollo físico a través del juego. Cada ejercicio está adaptado a la etapa de desarrollo de tu pequeño para fortalecer sus músculos y mejorar su coordinación.</p>
+                <p class="detail-description">El arte es un lenguaje universal. Utilizamos la pintura, el dibujo y el modelado como herramientas para que los niños expresen su mundo interior, desarrollen su creatividad y encuentren calma.</p>
                 
                 <div class="detail-section">
-                    <h3>Actividades Principales</h3>
+                    <h3>Exploración Creativa</h3>
                     <ul class="benefit-grid">
                         <li class="benefit-item">
-                            <span class="benefit-icon">🧗</span>
+                            <span class="benefit-icon">🖌️</span>
                             <div class="benefit-text">
-                                <strong>Circuitos</strong>
-                                <p>Gateo y obstáculos suaves.</p>
+                                <strong>Creatividad</strong>
+                                <p>Libertad para imaginar y crear.</p>
                             </div>
                         </li>
                         <li class="benefit-item">
                             <span class="benefit-icon">👐</span>
                             <div class="benefit-text">
-                                <strong>Coordinación</strong>
-                                <p>Ejercicios de agarre ojo-mano.</p>
+                                <strong>Motricidad Fina</strong>
+                                <p>Uso de pinceles, arcilla y texturas.</p>
                             </div>
                         </li>
                         <li class="benefit-item">
-                            <span class="benefit-icon">💃</span>
+                            <span class="benefit-icon">🌈</span>
                             <div class="benefit-text">
-                                <strong>Ritmo</strong>
-                                <p>Bailes y movimientos divertidos.</p>
+                                <strong>Expresión No Verbal</strong>
+                                <p>Comunicar a través del color.</p>
                             </div>
                         </li>
                         <li class="benefit-item">
-                            <span class="benefit-icon">🐢</span>
+                            <span class="benefit-icon">🧘</span>
                             <div class="benefit-text">
-                                <strong>Tummy Time</strong>
-                                <p>Fortalecimiento de cuello y espalda.</p>
+                                <strong>Relajación</strong>
+                                <p>El arte como medio de calma.</p>
                             </div>
                         </li>
                     </ul>
@@ -117,50 +117,109 @@ const activitiesData = {
             </div>
         </div>
     `,
-    social: `
-        <div class="detail-hero hero-social">
+    habilidades: `
+        <div class="detail-hero hero-habilidades">
             <div class="hero-bg"></div>
             <div class="hero-content">
                 <div class="hero-icon-wrapper">
-                    <span class="hero-icon">🤝</span>
+                    <span class="hero-icon">🧩</span>
                 </div>
-                <h2>Juego Social</h2>
-                <p class="hero-subtitle">Amistad y Convivencia</p>
+                <h2>Desarrollo de Habilidades</h2>
+                <p class="hero-subtitle">Aprendizaje Lúdico</p>
             </div>
         </div>
         <div class="detail-content-wrapper">
             <div class="detail-card glass-effect">
-                <p class="detail-description">El primer contacto con otros niños es fundamental. Creamos un espacio seguro donde los pequeños pueden interactuar, aprender unos de otros y hacer sus primeros amigos en un ambiente controlado.</p>
+                <p class="detail-description">Potenciamos las capacidades cognitivas y motrices de tu hijo mediante actividades lúdicas y material didáctico especializado, siempre respetando su ritmo y etapa de desarrollo.</p>
                 
                 <div class="detail-section">
-                    <h3>Beneficios del Grupo</h3>
+                    <h3>Áreas de Enfoque</h3>
                     <ul class="benefit-grid">
                         <li class="benefit-item">
-                            <span class="benefit-icon">❤️</span>
+                            <span class="benefit-icon">🏗️</span>
                             <div class="benefit-text">
-                                <strong>Empatía</strong>
-                                <p>Desarrollo emocional temprano.</p>
+                                <strong>Resolución de Problemas</strong>
+                                <p>Rompecabezas y lógica.</p>
                             </div>
                         </li>
                         <li class="benefit-item">
-                            <span class="benefit-icon">👀</span>
+                            <span class="benefit-icon">👁️</span>
                             <div class="benefit-text">
-                                <strong>Imitación</strong>
-                                <p>Aprendizaje observando a otros.</p>
+                                <strong>Coordinación</strong>
+                                <p>Ojo-mano y destreza manual.</p>
                             </div>
                         </li>
                         <li class="benefit-item">
-                            <span class="benefit-icon">🧩</span>
+                            <span class="benefit-icon">🔢</span>
                             <div class="benefit-text">
-                                <strong>Cooperación</strong>
-                                <p>Juegos simples en equipo.</p>
+                                <strong>Conceptos Básicos</strong>
+                                <p>Colores, formas, números.</p>
                             </div>
                         </li>
                         <li class="benefit-item">
-                            <span class="benefit-icon">👨‍👩‍👧‍👦</span>
+                            <span class="benefit-icon">🧸</span>
                             <div class="benefit-text">
-                                <strong>Comunidad</strong>
-                                <p>Vínculo entre familias.</p>
+                                <strong>Juego Estructurado</strong>
+                                <p>Aprender reglas y turnos.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="action-area">
+                    <button class="back-btn" onclick="showList()" aria-label="Regresar a Servicios">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="19" y1="12" x2="5" y2="12"></line>
+                            <polyline points="12 19 5 12 12 5"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    `,
+    academico: `
+        <div class="detail-hero hero-academico">
+            <div class="hero-bg"></div>
+            <div class="hero-content">
+                <div class="hero-icon-wrapper">
+                    <span class="hero-icon">📚</span>
+                </div>
+                <h2>Enfoque Académico</h2>
+                <p class="hero-subtitle">Bases para el Futuro</p>
+            </div>
+        </div>
+        <div class="detail-content-wrapper">
+            <div class="detail-card glass-effect">
+                <p class="detail-description">Brindamos apoyo personalizado para nivelación académica y preparación escolar. Fortalecemos las bases en lectura, escritura y pensamiento lógico para que tu hijo se sienta seguro y capaz.</p>
+                
+                <div class="detail-section">
+                    <h3>Apoyo Escolar</h3>
+                    <ul class="benefit-grid">
+                        <li class="benefit-item">
+                            <span class="benefit-icon">📝</span>
+                            <div class="benefit-text">
+                                <strong>Lectura y Escritura</strong>
+                                <p>Iniciación y refuerzo.</p>
+                            </div>
+                        </li>
+                        <li class="benefit-item">
+                            <span class="benefit-icon">🧮</span>
+                            <div class="benefit-text">
+                                <strong>Pensamiento Lógico</strong>
+                                <p>Matemáticas divertidas.</p>
+                            </div>
+                        </li>
+                        <li class="benefit-item">
+                            <span class="benefit-icon">🎒</span>
+                            <div class="benefit-text">
+                                <strong>Hábitos de Estudio</strong>
+                                <p>Rutinas y concentración.</p>
+                            </div>
+                        </li>
+                        <li class="benefit-item">
+                            <span class="benefit-icon">🚀</span>
+                            <div class="benefit-text">
+                                <strong>Confianza</strong>
+                                <p>Seguridad en sus capacidades.</p>
                             </div>
                         </li>
                     </ul>

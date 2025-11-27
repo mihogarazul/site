@@ -38,7 +38,6 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    justify: center;
     justify-content: center;
 }
 
@@ -95,7 +94,7 @@
 }
 
 .contact-info-item a {
-    color: #2c3e0;
+    color: #2c3e50;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.2s;
@@ -147,23 +146,20 @@
     border: 5px solid #fff;
     position: relative;
     transition: transform 0.3s ease;
+    z-index: 1;
+    /* Ensure container is above background */
 }
 
 .map-container:hover {
     transform: scale(1.01);
 }
 
-.map-container iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-    filter: grayscale(10%) contrast(1.05);
-    transition: filter 0.5s ease;
-}
-
 #leaflet-map {
     width: 100%;
     height: 100%;
+    background-color: #e0e0e0;
+    z-index: 0;
+    /* Leaflet creates its own stacking context, 0 is fine relative to container */
 }
 
 @keyframes fadeInUp {
@@ -190,8 +186,14 @@
     }
 
     .map-container {
+        flex: none;
+        /* Disable flex sizing on mobile */
+        width: 100%;
+        /* Ensure full width */
         height: 350px;
+        min-height: 350px;
         order: 2;
+        display: block;
     }
 
     .contact-details {
@@ -225,5 +227,9 @@
 
     .map-container {
         height: 300px;
+        min-height: 300px;
+        /* Force minimum height */
+        display: block;
+        /* Ensure it's not hidden */
     }
 }
