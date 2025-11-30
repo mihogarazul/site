@@ -172,11 +172,13 @@
     }
 
     .lofi-nav.scrolled {
-        padding: 0.5rem 3rem;
+        padding: 0.75rem 3rem;
+        /* Slightly larger padding for subtle shrink */
         background-color: rgba(255, 255, 255, 0.98);
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        /* Softer shadow */
     }
 
     .lofi-nav.scrolled .nav-logo {
