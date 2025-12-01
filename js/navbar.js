@@ -14,24 +14,43 @@ document.querySelectorAll('.nav-links a').forEach(n => n.addEventListener('click
 }));
 
 // Navbar Shrink on Scroll
+// Navbar Shrink on Scroll
 const navbar = document.querySelector('.lofi-nav');
-window.addEventListener('scroll', () => {
-    // Shrink navbar only after we've scrolled past a bit more than its own height (desktop behavior)
-    const isDesktop = window.innerWidth >= 769;
+let lastScrollY = window.scrollY;
+let ticking = false;
+let navbarHeight = navbar ? navbar.offsetHeight : 0;
+let isDesktop = window.innerWidth >= 1151; // Matching CSS media query
+
+// Update cached values on resize
+window.addEventListener('resize', () => {
+    if (navbar) navbarHeight = navbar.offsetHeight;
+    isDesktop = window.innerWidth >= 1151;
+    updateNavbar(); // Force update on resize
+});
+
+function updateNavbar() {
     if (!navbar) return;
 
-    // Increase threshold so user scrolls further before navbar shrinks
-    const threshold = Math.round(navbar.offsetHeight * 1.5);
+    // Threshold: 1.5x navbar height
+    const threshold = Math.round(navbarHeight * 1.5);
 
     if (!isDesktop) {
-        // Ensure mobile never gets the 'scrolled' class (CSS handles mobile differently)
         navbar.classList.remove('scrolled');
     } else {
-        if (window.scrollY > threshold) {
+        if (lastScrollY > threshold) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
+    }
+    ticking = false;
+}
+
+window.addEventListener('scroll', () => {
+    lastScrollY = window.scrollY;
+    if (!ticking) {
+        window.requestAnimationFrame(updateNavbar);
+        ticking = true;
     }
 });
 
