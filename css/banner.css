@@ -1,5 +1,5 @@
 .lofi-banner {
-    height: 70vh;
+    height: 70svh;
     width: 100%;
     background: #FCE4EC;
     display: flex;
@@ -165,7 +165,7 @@
 @media (max-width: 480px) {
     .lofi-banner {
         height: auto;
-        min-height: 60vh;
+        height: 70svh;
         padding-bottom: 0;
         display: flex;
         align-items: center;
